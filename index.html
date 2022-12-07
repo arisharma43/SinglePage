@@ -50,20 +50,12 @@
         padding-top: 100px;
       } */
 
-      #title {
-        color: whitesmoke;
-        font-size: 40px;
-        transition: font-size 1s, color 2s, border 1s, background-color 1s;
-        text-align: center;
+      #myModalLabel {
+        color: black;
       }
 
-      #title:hover {
-        color: whitesmoke;
-        font-size: 50px;
-        background-color: #705007;
-        border: solid 3px burlywood;
-        text-decoration: overline underline;
-        font-family: "Brush Script MT", monospace;
+      #poke {
+        color: black;
       }
     </style>
     <link
@@ -72,6 +64,8 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!-- ****  Bootstrap Feature submission **** -->
     <div class="container-fluid p-5 bg-dark text-white">
       <!-- ****  HTML Feature submission **** -->
@@ -83,13 +77,20 @@
         data-bs-toggle="modal"
         data-bs-target="#myModal"
       >
-        Open modal
+        Customize
       </button>
-      <div class="modal fade" id="myModal">
+      <!-- ****  Bootstrap Feature submission **** -->
+      <div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        aria-labelledby="myModalLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Customization</h5>
+              <h5 class="modal-title" id="myModalLabel">Customization</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -97,16 +98,17 @@
               ></button>
             </div>
             <div class="modal-body">
+              <!-- ****  HTML Feature submission **** -->
               <form id="customize">
-                <b>Difficulty:</b>
+                <b id="poke">Pokemon:</b>
                 <br />
-                <select name="difficulty" id="difficulty">
-                  <option value="easy">Easy</option>
-                  <option value="medium">Medium</option>
-                  <option value="hard">Hard</option>
-                  <option value="extraHard">Extra Hard</option>
+                <select name="Pokemon" id="pokemonChange">
+                  <option value="snorlax">Snorlax</option>
+                  <option value="pikachu">Pikachu</option>
+                  <option value="bulbasaur">Bulbasaur</option>
+                  <option value="squirtle">Squirtle</option>
                 </select>
-                <br /><br />
+                <br />
               </form>
             </div>
             <div class="modal-footer">
@@ -122,8 +124,6 @@
         </div>
       </div>
     </div>
-    <!-- ****  Bootstrap Feature submission **** -->
-    <!-- ****  HTML Feature submission **** -->
   </head>
 
   <body>
@@ -219,10 +219,31 @@
           reset();
         }
       };
+      // <!-- ****  jQuery substitute for CSS Feature submission **** -->
+      function pokeChanger() {
+        var currPokemon = $("#pokemonChange").find(":selected").val();
+        return currPokemon;
+      }
+
+      async function myFunc() {
+        var pokemonType = pokeChanger();
+
+        if (pokemonType == "snorlax") {
+          pokemonImage.src = "images/pokemon.png";
+        } else if (pokemonType == "pikachu") {
+          pokemonImage.src = "images/pikachu.png";
+        } else if (pokemonType == "bulbasaur") {
+          pokemonImage.src = "images/bulbasaur.png";
+        } else if (pokemonType == "squirtle") {
+          pokemonImage.src = "images/pokemon.png";
+        }
+      }
       // <!-- ****  JavaScript Feature submission **** -->
       var render = function () {
-        ctx.globalCompositeOperation = "destination-under";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // ctx.globalCompositeOperation = "destination-under";
+        // ctx.fillRect(0, 0, canvas.width, canvas.height);
+        myFunc().then();
+
         if (bgReady) {
           ctx.drawImage(bgImage, 0, 0);
         }
